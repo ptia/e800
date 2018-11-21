@@ -1,0 +1,25 @@
+OUT: a b c sp pc ram tmp add inc nand
+IN:  a b c sp pc cf_pc zf_pc ir ram tmp brg_o_tmp brg nxt
+usequence_start: pc -> tmp; inc -> pc; ram -> ir;
+usequence_end: ;tmp -> nxt;
+reg: a b c sp
+
+ASSEMBLY
+mov %reg0 %reg1 : %reg0 -> %reg1; 
+mov %reg %arg : pc -> tmp; inc -> pc; ram -> %reg;
+mov %reg [%addr] : pc -> tmp; ram -> brg; inc -> tmp; inc -> pc; ram -> brg_o_tmp; ram -> %reg;
+mov [%addr] %reg : pc -> tmp; ram -> brg; inc -> tmp; inc -> pc; ram -> brg_o_tmp; %reg -> ram;
+push %reg: sp -> tmp; %reg -> ram; inc -> sp;
+pop %reg: sp -> tmp; add -> sp; sp -> tmp; ram -> %reg
+add %reg %arg : pc -> tmp; inc -> pc; ram -> brg; %reg -> brg_o_tmp; add -> %reg;
+add %reg0 %reg1 : %reg0 -> brg; %reg1 -> brg_o_tmp; add -> %reg0;
+nand %reg %arg : pc -> tmp; inc -> pc; ram -> brg; %reg -> brg_o_tmp; nand -> %reg;
+nand %reg0 %reg1 : %reg0 -> brg; %reg1 -> brg_o_tmp; nand -> %reg0;
+inc %reg: %reg -> tmp; inc -> %reg;
+dec %reg: %reg -> tmp; add -> %reg;
+not %reg: %reg -> tmp; nand -> %reg;
+neg %reg: %reg -> tmp; nand -> tmp; inc -> %reg;
+sub %reg0 %reg1: %reg1 -> tmp; nand -> tmp; inc -> brg; %reg0 -> brg_o_tmp; add -> %reg0;
+jmp %label: pc -> tmp; ram -> brg; inc -> tmp; inc -> pc; ram -> brg_o_tmp; tmp -> pc
+jc %label: pc -> tmp; ram -> brg; inc -> tmp; inc -> pc; ram -> brg_o_tmp; tmp -> cf_pc
+jz %label: pc -> tmp; ram -> brg; inc -> tmp; inc -> pc; ram -> brg_o_tmp; tmp -> zf_pc

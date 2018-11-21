@@ -1,0 +1,60 @@
+$date
+	Sat Apr 22 14:25:12 2017
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module testbench $end
+$var wire 8 ! bus [7:0] $end
+$var reg 1 " clock $end
+$var reg 1 # enable_in_A $end
+$var reg 1 $ enable_in_B $end
+$var reg 1 % enable_out_A $end
+$var reg 1 & enable_out_B $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0&
+0%
+0$
+0#
+0"
+b11111111 !
+$end
+#5
+1"
+#10
+b10111101 !
+0"
+1#
+1&
+#15
+1"
+#20
+b10111101 !
+0"
+1%
+0#
+0&
+#25
+1"
+#30
+b11111111 !
+0"
+1$
+0%
+#35
+1"
+#40
+b11111111 !
+0"
+1&
+0$
+#45
+1"
+#50
+0"

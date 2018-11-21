@@ -1,0 +1,12 @@
+mov b 0
+mov a 249
+ 
+`loop:
+inc b
+add a 2
+jc `end
+jmp `loop
+
+`end:
+mov [0xabcd] b
+hlt
